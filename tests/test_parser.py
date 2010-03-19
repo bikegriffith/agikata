@@ -8,11 +8,19 @@ class ParserTest(object):
     schema = None
     input = None
     expected = None
+    expect_raise = None
 
     def setup(self):
-        self.results = parse(self.input, self.schema)
+        if self.expect_raise:
+            def parseit():
+                parse(self.input, self.schema)
+            NT.assert_raises(self.expect_raise, parseit)
+        else:
+            self.results = parse(self.input, self.schema)
 
     def test_results_matches_expected(self):
+        if self.expect_raise:
+            return
         NT.assert_equals(self.expected, self.results)
 
 
@@ -48,17 +56,17 @@ class TestNegativeInteger(DavesExample):
             }
 
 
+class TestRaiseValueErrorWhenExpectingStringButGivenNothing(DavesExample):
+
+    input = "-r mybad"
+    expect_raise = ValueError
+
+
+
 class TestRaisesValueErrorWhenGivenNonInteger(DavesExample):
 
     input = "-r mybad"
-
-    def setup(self):
-        pass
-
-    def test_results_matches_expected(self):
-        def parseit():
-            parse(self.input, self.schema)
-        NT.assert_raises(ValueError, parseit)
+    expect_raise = ValueError
 
 
 
