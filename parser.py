@@ -2,29 +2,39 @@
 
 def parse(input, schema):
     args = input.split(" ")
-    return _parse_list_of_args(args, schema)
+    return Parser(args, schema).parse()
 
 
-def _parse_list_of_args(args, schema):
-    results = {}
-    for key, transform in schema.items():
-        expected_arg = "-%s" % key
-        if expected_arg not in args:
-            continue
-        if transform is None:
-            results[key] = True
-        else:
-            val = _get_next_in_list(args, expected_arg)
-            results[key] = transform(val)
-    return results
+class Parser(object):
 
+    def __init__(self, args, schema):
+        self.args = args
+        self.schema = schema
 
-def _get_next_in_list(args, predecessor):
-    """ return the value that comes immediately after the given predecessor
-    """
-    try:
-        return args[args.index(predecessor) + 1]
-    except IndexError:
-        raise ValueError("Missing argument value for %s" % predecessor)
+    def parse(self):
+        results = {}
+        for key, transform in self.schema.items():
+            expected_arg = "-%s" % key
+            if expected_arg not in self.args:
+                continue
+            if transform is None:
+                results[key] = True
+            else:
+                val = self._get_next_in_list(expected_arg)
+                self._verify_value(val)
+                results[key] = transform(val)
+        return results
+
+    def _get_next_in_list(self,predecessor):
+        """ return the value that comes immediately after the given predecessor
+        """
+        try:
+            return self.args[self.args.index(predecessor) + 1]
+        except IndexError:
+            raise ValueError("Missing argument value for %s" % predecessor)
+
+    def _verify_value(self, val):
+        if val.strip("-") in self.schema:
+            raise ValueError("Missing argument value")
 
 

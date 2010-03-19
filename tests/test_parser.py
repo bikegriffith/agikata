@@ -62,6 +62,14 @@ class TestRaiseValueErrorWhenExpectingStringButGivenNothing(DavesExample):
 
 
 
+class TestRaiseValueErrorWhenExpectingStringButGivenNothingAndWeHaveOtherStuff(DavesExample):
+
+    input = "-f -r 1234"
+    expect_raise = ValueError
+
+
+
+
 class TestRaisesValueErrorWhenGivenNonInteger(DavesExample):
 
     input = "-r mybad"
