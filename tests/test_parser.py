@@ -19,9 +19,8 @@ class ParserTest(object):
             self.results = parse(self.input, self.schema)
 
     def test_results_matches_expected(self):
-        if self.expect_raise:
-            return
-        NT.assert_equals(self.expected, self.results)
+        if not self.expect_raise:
+            NT.assert_equals(self.expected, self.results)
 
 
 class DavesExample(ParserTest):
