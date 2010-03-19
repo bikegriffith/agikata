@@ -13,7 +13,8 @@ def _parse_list_of_args(args, schema):
             if transform is None:
                 results[key] = True
             else:
-                results[key] = transform(_get_next_in_list(args, expected_arg))
+                val = _get_next_in_list(args, expected_arg)
+                results[key] = transform(val)
     return results
 
 
