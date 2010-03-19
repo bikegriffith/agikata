@@ -9,12 +9,13 @@ def _parse_list_of_args(args, schema):
     results = {}
     for key, transform in schema.items():
         expected_arg = "-%s" % key
-        if expected_arg in args:
-            if transform is None:
-                results[key] = True
-            else:
-                val = _get_next_in_list(args, expected_arg)
-                results[key] = transform(val)
+        if expected_arg not in args:
+            continue
+        if transform is None:
+            results[key] = True
+        else:
+            val = _get_next_in_list(args, expected_arg)
+            results[key] = transform(val)
     return results
 
 
