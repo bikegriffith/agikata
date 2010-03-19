@@ -33,6 +33,21 @@ class DavesExample(ParserTest):
             }
 
 
+class TestDavesExample(DavesExample):
+    pass
+
+
+class TestNegativeInteger(DavesExample):
+
+    input = "-f foo.cfg -x -r -4286"
+
+    expected = {
+            "f": "foo.cfg",
+            "x": True,
+            "r": -4286
+            }
+
+
 class TestFlagPresent(DavesExample):
 
     input = "-x"
