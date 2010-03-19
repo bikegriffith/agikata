@@ -59,3 +59,13 @@ class TestStringValue(DavesExample):
             }
 
 
+class TestStringsAndFlags(DavesExample):
+
+    input = "-f foo.cfg -x"
+
+    expected = {
+            "f": "foo.cfg",
+            "x": True
+            }
+
+
