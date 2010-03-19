@@ -50,3 +50,12 @@ class TestFlagMissing(DavesExample):
             }
 
 
+class TestStringValue(DavesExample):
+
+    input = "-f foo.cfg"
+
+    expected = {
+            "f": "foo.cfg"
+            }
+
+
