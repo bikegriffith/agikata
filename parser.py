@@ -22,6 +22,9 @@ def _parse_list_of_args(args, schema):
 def _get_next_in_list(args, predecessor):
     """ return the value that comes immediately after the given predecessor
     """
-    return args[args.index(predecessor) + 1]
+    try:
+        return args[args.index(predecessor) + 1]
+    except IndexError:
+        raise ValueError("Missing argument value for %s" % predecessor)
 
 

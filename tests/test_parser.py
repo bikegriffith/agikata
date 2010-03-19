@@ -57,7 +57,7 @@ class TestNegativeInteger(DavesExample):
 
 class TestRaiseValueErrorWhenExpectingStringButGivenNothing(DavesExample):
 
-    input = "-r mybad"
+    input = "-r"
     expect_raise = ValueError
 
 
