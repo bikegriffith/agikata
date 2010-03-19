@@ -59,6 +59,17 @@ class TestStringValue(DavesExample):
             }
 
 
+
+class TestIntegerValue(DavesExample):
+
+    input = "-r 9999"
+
+    expected = {
+            "r": 9999
+            }
+
+
+
 class TestStringsAndFlags(DavesExample):
 
     input = "-f foo.cfg -x"
