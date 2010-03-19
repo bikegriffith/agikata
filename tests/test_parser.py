@@ -48,6 +48,20 @@ class TestNegativeInteger(DavesExample):
             }
 
 
+class TestRaisesValueErrorWhenGivenNonInteger(DavesExample):
+
+    input = "-r mybad"
+
+    def setup(self):
+        pass
+
+    def test_results_matches_expected(self):
+        def parseit():
+            parse(self.input, self.schema)
+        NT.assert_raises(ValueError, parseit)
+
+
+
 class TestFlagPresent(DavesExample):
 
     input = "-x"
